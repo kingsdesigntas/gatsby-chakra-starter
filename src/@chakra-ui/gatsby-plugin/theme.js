@@ -1,5 +1,7 @@
 // 1. Import the extendTheme function
 import { extendTheme } from "@chakra-ui/react";
+import "@fontsource/encode-sans/400.css";
+import "@fontsource/encode-sans/700.css";
 
 const config = {
 	useSystemColorMode: false,

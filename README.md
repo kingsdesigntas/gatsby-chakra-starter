@@ -9,6 +9,5 @@ Hit the ground running with this Gatsby starter project featuring Chakra UI for 
 - Preact by default
 - Gatsby Root Imports
 - SEO Friendly
-- SCSS for general styling
 - Typeface from FontSource
 - React Icons

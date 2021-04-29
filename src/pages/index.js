@@ -35,7 +35,6 @@ const index = () => {
 							<ListItem>Preact by default</ListItem>
 							<ListItem>Gatsby Root Imports</ListItem>
 							<ListItem>SEO Friendly</ListItem>
-							<ListItem>SCSS for general styling</ListItem>
 							<ListItem>Typeface from FontSource</ListItem>
 							<ListItem>React Icons</ListItem>
 						</UnorderedList>

@@ -7,7 +7,6 @@ module.exports = {
 		image: "/static/getanimagespublicurlfromgraphqlplayground.jpg",
 	},
 	plugins: [
-		"gatsby-plugin-sass",
 		"@chakra-ui/gatsby-plugin",
 		"gatsby-plugin-preact",
 		"gatsby-plugin-root-import",
