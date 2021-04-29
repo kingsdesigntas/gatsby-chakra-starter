@@ -8,6 +8,7 @@ module.exports = {
 	},
 	plugins: [
 		"gatsby-plugin-sass",
+		"@chakra-ui/gatsby-plugin",
 		"gatsby-plugin-preact",
 		"gatsby-plugin-root-import",
 		"gatsby-plugin-image",
