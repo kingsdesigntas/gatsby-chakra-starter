@@ -4,7 +4,6 @@ module.exports = {
 		description:
 			"This string will be set as the site's default metadescription. The image option below will be a concatenation of siteUrl and image, which will be the default social sharing image.",
 		siteUrl: "https://kingsdesign.com.au",
-		image: "/static/getanimagespublicurlfromgraphqlplayground.jpg",
 	},
 	plugins: [
 		"@chakra-ui/gatsby-plugin",

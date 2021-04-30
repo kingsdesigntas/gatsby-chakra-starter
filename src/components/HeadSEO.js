@@ -3,37 +3,37 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
-const HeadSeo = ({ description, lang, meta, title, image }) => {
-	const { site } = useStaticQuery(
-		graphql`
-			query {
-				site {
-					siteMetadata {
-						title
-						description
-						siteUrl
-						image
-					}
-				}
+const getSiteData = graphql`
+	query {
+		site {
+			siteMetadata {
+				title
+				description
+				siteUrl
 			}
-		`
-	);
-
-	const metaDescription = description || site.siteMetadata.description;
-	const defaultTitle = site.siteMetadata?.title;
-	const url = site.siteMetadata.siteUrl;
-	const defaultImage = `${url}${site.siteMetadata.image}`;
-	let pageImage = "";
-	if (image) {
-		pageImage = `${url}${image}`;
+		}
+		file(name: { eq: "defaultSocialShareImage" }) {
+			publicURL
+		}
 	}
+`;
 
+const HeadSeo = ({ description, lang, meta, title, image }) => {
+	const data = useStaticQuery(getSiteData);
+	const metaDescription = description || data.site.siteMetadata.description;
+	const defaultTitle = data.site.siteMetadata?.title;
+	const pageTitle = title;
+	const url = data.site.siteMetadata.siteUrl;
+	const manualImage = image;
+	const defaultImage = data.file.publicURL;
+	const shareImage = manualImage || defaultImage;
 	return (
 		<Helmet
 			htmlAttributes={{
 				lang,
 			}}
-			title={title}
+			title={pageTitle}
+			// titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
 			meta={[
 				{
 					name: `description`,
@@ -49,7 +49,7 @@ const HeadSeo = ({ description, lang, meta, title, image }) => {
 				},
 				{
 					property: `og:image`,
-					content: pageImage || defaultImage,
+					content: `${url}${shareImage}`,
 				},
 				{
 					property: `og:type`,
@@ -69,7 +69,7 @@ const HeadSeo = ({ description, lang, meta, title, image }) => {
 				},
 				{
 					property: `twitter:image`,
-					content: pageImage || defaultImage,
+					content: `${url}${shareImage}`,
 				},
 			].concat(meta)}
 		/>
