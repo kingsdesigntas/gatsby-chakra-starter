@@ -18,6 +18,7 @@ const index = () => {
 			<HeadSEO
 				title="Hit the ground running | Gatsby Chakra Starter"
 				description="Hit the ground running with this Gatsby starter project featuring Chakra UI for styling & full Mdx support with automatic image optimisation."
+				slug="/"
 			/>
 			<Box bg="gray.50" py="8rem">
 				<Container maxW="container.md">

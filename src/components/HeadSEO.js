@@ -18,15 +18,29 @@ const getSiteData = graphql`
 	}
 `;
 
-const HeadSeo = ({ description, lang, meta, title, image }) => {
+const HeadSEO = ({
+	description,
+	lang,
+	meta,
+	title,
+	image,
+	imageWidth,
+	imageHeight,
+	alt,
+	type,
+	slug,
+	robots,
+}) => {
 	const data = useStaticQuery(getSiteData);
 	const metaDescription = description || data.site.siteMetadata.description;
-	const defaultTitle = data.site.siteMetadata?.title;
-	const pageTitle = title;
+	const pageTitle = title || data.site.siteMetadata?.title;
 	const url = data.site.siteMetadata.siteUrl;
-	const manualImage = image;
-	const defaultImage = data.file.publicURL;
-	const shareImage = manualImage || defaultImage;
+	const shareImage = image || data.file.publicURL;
+	const imageAlt = alt || "set the default image alt";
+	const ogImageWidth = imageWidth || "1500";
+	const ogImageHeight = imageHeight || "1000";
+	const ogType = type;
+
 	return (
 		<Helmet
 			htmlAttributes={{
@@ -40,6 +54,14 @@ const HeadSeo = ({ description, lang, meta, title, image }) => {
 					content: metaDescription,
 				},
 				{
+					name: `robots`,
+					content: robots || "index",
+				},
+				{
+					name: `googlebot`,
+					content: robots || "index",
+				},
+				{
 					property: `og:title`,
 					content: title,
 				},
@@ -48,12 +70,28 @@ const HeadSeo = ({ description, lang, meta, title, image }) => {
 					content: metaDescription,
 				},
 				{
+					property: `og:url`,
+					content: `${url}${slug}`,
+				},
+				{
 					property: `og:image`,
 					content: `${url}${shareImage}`,
 				},
 				{
+					property: `og:image:alt`,
+					content: imageAlt,
+				},
+				{
+					property: `og:image:width`,
+					content: ogImageWidth,
+				},
+				{
+					property: `og:image:height`,
+					content: ogImageHeight,
+				},
+				{
 					property: `og:type`,
-					content: `website`,
+					content: ogType,
 				},
 				{
 					name: `twitter:card`,
@@ -71,22 +109,28 @@ const HeadSeo = ({ description, lang, meta, title, image }) => {
 					property: `twitter:image`,
 					content: `${url}${shareImage}`,
 				},
+				{
+					property: `twitter:image:alt`,
+					content: imageAlt,
+				},
 			].concat(meta)}
-		/>
+		>
+			<link rel="canonical" href={`${url}${slug}`} />
+		</Helmet>
 	);
 };
 
-HeadSeo.defaultProps = {
+HeadSEO.defaultProps = {
 	lang: `en`,
 	meta: [],
 	description: ``,
 };
 
-HeadSeo.propTypes = {
+HeadSEO.propTypes = {
 	description: PropTypes.string,
 	lang: PropTypes.string,
 	meta: PropTypes.arrayOf(PropTypes.object),
 	title: PropTypes.string.isRequired,
 };
 
-export default HeadSeo;
+export default HeadSEO;
